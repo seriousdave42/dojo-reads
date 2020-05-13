@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoReads</title>
+</head>
+<body>
+    <h1>Welcome, {{user_name}}</h1>
+    <a href="/books/add_book">Add Book and Review</a><br>
+    <a href="/logout">Log Out</a><br><br>
+    <h3>Recent Book Reviews</h3>
+    {% for review in recent_reviews %}
+        <a href="/books/{{review.book.id}}">{{review.book.title}}</a>
+        <p>Rating: {{review.rating}}/5</p>
+        <p><a href="/books/users/{{review.user.id}}">{{review.user.user_name}}</a> says: {{review.review_text}}</p>
+        {% load tz %}
+            {% timezone "America/Chicago" %}
+            <p>Posted on {{review.created_at}}</p>
+            {% endtimezone %}
+    {% endfor %}
+    <br><br>
+    <h3>Other Reviewed Books</h3>
+    <ul>
+        {% for book in books %}
+            <li><a href="/books/{{book.id}}">{{book.title}}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoReads</title>
+</head>
+<body>
+    <h1>Please Register/Login</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <h2>Registration</h2>
+    <form action="/register" method="POST">
+        {% csrf_token %}
+        Name: <input type="text" name="name"><br><br>
+        User Name: <input type="text" name="user_name"> *at least six characters<br><br>
+        Email: <input type="email" name="email"><br><br>
+        Password: <input type="password" name="password"> *at least 8 characters and contains "cat", the number 5, and no special characters<br><br>
+        Confirm PW: <input type="password" name="pw_check"><br><br>
+        <input type="submit" value="Register">
+    </form><br><br><br>
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        {% csrf_token %}
+        Email: <input type="email" name="email"><br><br>
+        Password: <input type="password" name="password"><br><br>
+        <input type="submit" value="Log In">
+    </form>
+</body>
+</html>

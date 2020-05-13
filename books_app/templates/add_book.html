@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoReads</title>
+</head>
+<body>
+    <a href="/books">Home</a><br>
+    <a href="/logout">Log Out</a><br><br>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <h2>Add a New Book Title and a Review</h2>
+    <form action="/books/new_book" method="POST">
+        {% csrf_token %}
+        <p>Book Title: <input type="text" name="title"></p>
+        <p>Author:</p>
+        <p>Choose from the list: 
+            <select name="author_id">
+                <option value="-1">Enter new author</option>
+                {% for author in author_list %}
+                    <option value="{{author.id}}">{{author.name}}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p> Or add a new author: <input type="text" name="new_author"></p>
+        <p>Review (optional): <textarea name="review_text"></textarea></p>
+        <p>Rating:
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <input type="submit" value="Add Book and Review">
+    </form>
+</body>
+</html>

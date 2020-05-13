@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoReads</title>
+</head>
+<body>
+    <a href="/books">Home</a><br>
+    <a href="/logout">Log Out</a><br><br>
+    <h1>{{book.title}}<h1>
+    <h3>Author: {{book.author.name}}</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    {% if not reviews %}
+        <form action="/books/{{book.id}}/new_review" method="POST">
+            {% csrf_token %}
+            <p>Add a Review (optional)</p>
+            <textarea name="review_text"></textarea>
+            <br>
+            <p>Rating: 
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </p>
+            <input type="submit" value="Submit Review">
+        </form>
+    {% endif %}
+    <h2>Reviews</h2>
+    {% for review in book.user_reviews.all %}
+        <p>Rating: {{review.rating}}/5</p>
+        <p><a href="/books/users/{{review.user.id}}">{{review.user.user_name}}</a> says: {{review.review_text}}</p>
+        <p>Posted on {{review.created_at}}</p>
+        {% if user_id == review.user.id %}
+            <a href="/books/reviews/{{review.id}}/delete">Delete Your Review</a>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

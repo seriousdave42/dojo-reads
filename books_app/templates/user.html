@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DojoReads</title>
+</head>
+<body>
+    <a href="/books">Home</a><br>
+    <a href="/books/add_book">Add Book and Review</a><br>
+    <a href="/logout">Log Out</a><br><br>
+    <h2>User Name: {{user.user_name}}</h2>
+    <h3>Name: {{user.name}}</h3>
+    <h3>Email: {{user.email}}</h3>
+    <h3>Total Reviews: {{reviews}}</h3>
+    <br>
+    <h3>Books Reviewed</h3>
+    <ul>
+        {% for review in user.book_reviews.all %}
+            <li><a href="/books/{{review.book.id}}">{{review.book.title}}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
